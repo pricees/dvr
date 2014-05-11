@@ -1,5 +1,7 @@
 require "dvr/version"
 
 module Dvr
-  # Your code goes here...
+  
 end
+
+require "dvr/input_parser.rb"
