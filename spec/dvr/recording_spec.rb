@@ -31,4 +31,18 @@ describe Dvr::Recording do
       end
     end
   end
+
+  describe "#space_available" do
+
+    describe "sd resolution" do
+      let(:recording) do
+        Dvr::Recording.new({ running_length: 300,
+                           resolution: :sd })
+      end
+
+      it "takes 7.2 gig of space" do
+        expect(recording.approximate_space).to eq(7_200)
+      end
+    end
+  end
 end
