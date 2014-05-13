@@ -1,6 +1,8 @@
 module Dvr
   class Recording
 
+    attr_accessor :recording
+
     def initialize(show)
       @show = show
     end
@@ -11,6 +13,14 @@ module Dvr
 
     def end_time
       @show[:start_time] + @show[:running_length]
+    end
+
+    def priority
+      @show[:priority] || 1
+    end
+
+    def recording?
+      !!@recording
     end
   end
 end

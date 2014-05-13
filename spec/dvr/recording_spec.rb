@@ -2,7 +2,6 @@ require "spec_helper"
 require_relative "../../lib/dvr.rb"
 
 describe Dvr::Recording do
-
   describe "#recording?" do
     context "a show that is still running" do
       let(:show) do
