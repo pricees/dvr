@@ -3,6 +3,10 @@ require_relative "../../lib/dvr.rb"
 
 describe Dvr::Device do
 
+  describe "#tuners" do
+
+  end
+
   describe "#space_remaining" do
     context "with zero recordings" do
       it "has all space remaining" do

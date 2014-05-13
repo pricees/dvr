@@ -1,15 +1,19 @@
 module Dvr
   class Device
-
-    def initialize(streams = 1, total_space = 200E9)
-      @streams = streams
-      @total_space = total_space
-      @recordings = []
-    end
-
-    attr_reader :streams
+    attr_reader :tuners
     attr_reader :total_space
     attr_accessor :recordings
+
+    def initialize(tuners = 2, total_space = 200E9)
+      @tuners             = tuners
+      @current_recordings = []
+      @total_space        = total_space
+      @recordings         = []
+    end
+
+    def current_recording
+      @current_reordings
+    end
 
     #
     # NOTE: This makes approximations based on the FULL recording size of shows. Partial recordings will be approximated with there full size
