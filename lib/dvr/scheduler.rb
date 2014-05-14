@@ -21,6 +21,16 @@ module Dvr
       @schedule ||= []
     end
 
+    def channels_for_time(time = Time.now)
+      user_schedule.inject([]) do |channels, schedule|
+        if time.between?(schedule[:start_time], schedule[:end_time])
+          p schedule
+          channels << schedule[:channel]
+        end
+        channels
+      end
+    end
+
     def update_recording_schedule(time)
     end
 
