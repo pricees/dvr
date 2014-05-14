@@ -41,7 +41,7 @@ describe Dvr::Recording do
       end
 
       it "takes 7.2 gig of space" do
-        expect(recording.approximate_space).to eq(7_200)
+        expect(recording.full_size).to eq(7_200)
       end
     end
   end

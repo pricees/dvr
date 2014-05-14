@@ -15,15 +15,22 @@ module Dvr
       @current_reordings
     end
 
+    def play(i)
+      Play.do(recordings[i])
+    end
+
     #
-    # NOTE: This makes approximations based on the FULL recording size of shows. Partial recordings will be approximated with there full size
+    # NOTE: This makes approximations based on the FULL recording size of
+    # shows. Again, partial recordings will be approximated with there full
+    # size. The reason for this is because we will want to capture the entire
+    # show in subsequent recording attempts. We want that space to be reserved
     def space_remaining
-      recordings_size = 0
+      used = 0
       if recordings.any?
-        recordings_size =  recordings.map(&:approximate_space).reduce(:+) 
+        used = recordings.map(&:full_size).reduce(:+) 
       end
 
-      total_space - recordings_size
+      total_space - used
     end
 
     def space_remaining?

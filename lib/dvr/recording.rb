@@ -37,8 +37,17 @@ module Dvr
       @show[:resolution] || :sd
     end
 
-    def approximate_space
+    def file
+      # TODO: Where the file is stored
+    end
+
+    def file_size
+      # TODO: File size
+    end
+
+    def full_size
       DISK[resolution] * (running_length / 30)
     end
+
   end
 end
