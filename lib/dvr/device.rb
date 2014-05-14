@@ -5,11 +5,14 @@ module Dvr
     attr_accessor :recordings
     attr_reader :current_recordings
 
-    def initialize(tuners = 2, total_space = 200E9)
+    def initialize(tuners = 2, total_space = 200E9, scheduler = Scheduler.instance)
       @tuners             = tuners
       @current_recordings = []
       @total_space        = total_space
       @recordings         = []
+      @scheduler          = scheduler
+      
+      @scheduler.add_observer(self)
     end
 
     def play(i)
@@ -68,6 +71,9 @@ module Dvr
 
     def space_available?
       space_available > 0
+    end
+
+    def update
     end
   end
 end
