@@ -9,8 +9,16 @@ module Dvr
       @show = show
     end
 
-    def running?
-      Time.now < end_time
+    #
+    # NOTE: Allow recording up to arbitrary seconds before show starts
+    #
+    def recordable?
+      (Time.now + recording_start_time_delta > start_time) && \
+        Time.now < end_time
+    end
+
+    def recording_start_time_delta 
+      @recording_start_time_delta ||= 60
     end
 
     def end_time
@@ -35,6 +43,15 @@ module Dvr
 
     def resolution
       @show[:resolution] || :sd
+    end
+
+    def record!
+      @recording = true
+      # TODO: implement how to record
+    end
+
+    def halt!
+      @recording = false
     end
 
     def file
