@@ -54,6 +54,10 @@ module Dvr
       @recording = false
     end
 
+    def stop_recording
+      halt!
+    end
+
     def file
       # TODO: Where the file is stored
     end

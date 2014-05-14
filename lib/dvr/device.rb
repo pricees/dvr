@@ -48,8 +48,8 @@ module Dvr
     # TODO: Refactor into Tuner object
     #
     def open_tuner
-      tuners.times do |n|
-        return n if current_recordings[n].nil?
+      tuners.times do |tuner|
+        return tuner if current_recordings[tuner].nil?
       end
 
       nil
@@ -73,7 +73,41 @@ module Dvr
       space_available > 0
     end
 
-    def update
+    #
+    # Update receives new recordings
+    # It checks to see current recordings and free those up
+    # After, it attempts to start recording the array passed
+    #
+    def update(new_recordings = [])
+      new_recordings ||= [] # if nil is passed
+
+      check_recordings
+      new_recordings.each { |recording| record recording }
+    end
+
+    private 
+
+    def free_up_tuner(tuner)
+      current_recordings[tuner] = nil
+    end
+
+    def stop_and_store_recording(recording)
+      recording.stop_recording
+      recordings.unshift recording
+    end
+
+    #
+    # TODO: Check if current recording is lower priority than new request
+    #
+    def check_recordings
+      tuners.times do |tuner|
+        recording = current_recordings[tuner]
+
+        next if recording.nil? || recording.recordable?
+
+        stop_and_store_recording(recording)
+        free_up_tuner(tuner)
+      end
     end
   end
 end

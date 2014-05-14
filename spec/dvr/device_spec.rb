@@ -107,4 +107,24 @@ describe Dvr::Device do
       end
     end
   end
+
+  describe "#update" do
+    let(:recordings) do
+      [ double(recordable?: false, stop_recording: true), 
+        double(recordable?: false, stop_recording: true)]
+    end
+
+    before do
+      subject.stub(:current_recordings).and_return recordings
+    end
+
+    it "clears tuners of finished recordings" do
+      subject.update []
+      expect(subject.current_recordings).to be_none
+    end
+
+    it "adds finished recordings to store" do
+      expect { subject.update }.to change {subject.recordings.length}.by(2)
+    end
+  end
 end
