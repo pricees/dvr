@@ -6,6 +6,15 @@ module Dvr
     include Singleton
     include Observable
 
+    
+    def schedule
+      @schedule ||= []
+    end
+
+    def update_schedule(ary)
+    end
+
+
     def run!
       t = Thread.new do
         loop do
