@@ -16,7 +16,9 @@ describe Dvr::TvSchedule do
     end
 
     context "show is available" do
-      let(:next_show) { double }
+      let(:next_show) do
+        { :end_time => Time.now + 30 }
+      end
 
       let(:shows) do
         { Time.now + 1 => next_show, Time.now + 3600 => double }
@@ -28,7 +30,9 @@ describe Dvr::TvSchedule do
 
       context "defaults time to now" do
         it "returns the next show on a change" do
-          expect(Dvr::TvSchedule.instance.next_show(1)).to eq(next_show)
+          time = Time.now
+          res = Dvr::TvSchedule.instance.next_show(1, time, time + 1800)
+          expect(res).to eq(next_show)
         end
       end
     end

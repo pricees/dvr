@@ -12,6 +12,7 @@ module Dvr
     #
     attr_accessor :showtimes
 
+
     #
     # Espects shows ordered by start_time
     #
@@ -21,6 +22,10 @@ module Dvr
         tmp[show[:channel]].merge!(show[:start_time] => show)
       end
       @showtimes = tmp
+    end
+
+    def showtimes
+      @showtimes ||= Hash.new { |h, k| h[k] = {} }
     end
 
     def update_schedule(time = Time.now)
@@ -37,12 +42,12 @@ module Dvr
     end
 
 
-    def next_show(channel, time = Time.now)
+    def next_show(channel, time = Time.now, end_time = Time.now)
 
       shows = showtimes[channel.to_i]
       return if shows.nil? || shows.none?
 
-      _show = shows.detect { |show| time <= show[0]  }
+      _show = shows.detect { |show| time <= show[0] && show[0] <= end_time  }
       _show && _show[1]
     end
   end
