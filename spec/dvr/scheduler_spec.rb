@@ -40,7 +40,7 @@ describe Dvr::Scheduler do
   end
 
   before do
-    Dvr::Scheduler.instance.update_user_schedule Dvr::InputParser.new.parse(user_schedule)
+    Dvr::Scheduler.instance.update_user_schedule Dvr::InputParser.parse(user_schedule)
 
     Dvr::TvSchedule.instance.showtimes = showtimes
   end

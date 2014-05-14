@@ -1,5 +1,6 @@
 module Dvr
-  class InputParser
+  module InputParser
+    extend self
 
     def parse(input)
       input.map do |schedule|

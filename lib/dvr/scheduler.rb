@@ -1,5 +1,6 @@
 require "singleton"
 require "observer"
+require "set"
 
 module Dvr
   class Scheduler
@@ -33,6 +34,8 @@ module Dvr
 
     def register_device(device)
       @device = device
+
+      run! if ENV["PRODUCTION"]
     end
 
     #
@@ -93,17 +96,15 @@ module Dvr
       end 
     end
 
-
     #
+    # Thread to run schedule
     #
+    # update recordables
     #
-
-
     def run!
-      t = Thread.new do
+      @t ||= Thread.new do
         loop do
           ct = Time.now
-
 
           device.update(recordables)
 
@@ -111,7 +112,7 @@ module Dvr
           next_min = Time.new(ct.year, ct.month, ct.day, ct.hour, ct.min + 1) - ct
           sleep next_min
         end
-      end
+      end.join
     end
 
     private
@@ -124,6 +125,7 @@ module Dvr
     def user_schedule_range
       _start_time = nil
       _end_time = nil
+
       user_schedule.each do |s|
         if _start_time.nil? || _start_time > s[:start_time]
           _start_time = s[:start_time]
