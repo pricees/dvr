@@ -73,7 +73,10 @@ module Dvr
     end
 
     def halt!
-      @halt ||= !@recording = false
+      @halt ||= begin
+                  @recording = false
+                  true
+                end
     end
 
     def stop_recording

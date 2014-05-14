@@ -12,7 +12,7 @@ module Dvr
       @recordings         = []
       @scheduler          = scheduler
       
-      @scheduler.add_observer(self)
+      @scheduler.register_device(self)
     end
 
     def play(i)

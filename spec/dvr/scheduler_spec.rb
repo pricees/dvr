@@ -43,7 +43,15 @@ describe Dvr::Scheduler do
     Dvr::TvSchedule.instance.showtimes = showtimes
   end
 
-  describe "channels_at_time" do
+  describe "#update_recording_schedule" do
+    it "updates_the_schedule" do
+      Dvr::Scheduler.instance.update_recording_schedule Time.now
+      puts
+      p Dvr::Scheduler.instance.schedule
+      p Dvr::Encoding.output Dvr::Scheduler.instance.schedule
+    end
+  end
+  describe "#channels_at_time" do
     let(:time) do
       t = Date.today
       Time.new(t.year, t.month, t.day, 17)

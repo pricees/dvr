@@ -38,13 +38,12 @@ module Dvr
 
 
     def next_show(channel, time = Time.now)
-      update_schedule(time)
-      
-      shows = showtimes[channel]
 
+      shows = showtimes[channel.to_i]
       return if shows.nil? || shows.none?
 
-      shows.first[1]
+      _show = shows.detect { |show| time <= show[0]  }
+      _show && _show[1]
     end
   end
 end
