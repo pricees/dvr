@@ -37,6 +37,14 @@ module Dvr
       @show[:priority] || 1
     end
 
+    def name
+      @show[:name]
+    end
+
+    def channel
+      @show[:channel]
+    end
+
     def recording?
       !!@recording
     end
@@ -50,8 +58,22 @@ module Dvr
       # TODO: implement how to record
     end
 
+    #
+    # If a user intententionally halts the program
+    #
+    def halted?
+      @halt
+    end
+
+    #
+    # If a user wants to resume taping
+    #
+    def resume
+      @halt = false
+    end
+
     def halt!
-      @recording = false
+      @halt ||= !@recording = false
     end
 
     def stop_recording

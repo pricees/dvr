@@ -10,11 +10,23 @@ module Dvr
     #   The channels sub hash keys are show start times
     #   The channels sub hash values are the shows
     #
-    attr_reader :showtimes
+    attr_accessor :showtimes
+
+    #
+    # Espects shows ordered by start_time
+    #
+    def showtimes=(shows)
+      tmp = Hash.new { |h, k| h[k] = {} }
+      shows.each do |show|
+        tmp[show[:channel]].merge!(show[:start_time] => show)
+      end
+      @showtimes = tmp
+    end
 
     def update_schedule(time = Time.now)
       # TODO: Pull new data for shows and times
       schedule(time)
+
     end
 
     #

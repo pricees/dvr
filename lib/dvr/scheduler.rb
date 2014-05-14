@@ -6,19 +6,30 @@ module Dvr
     include Singleton
     include Observable
 
+    #
+    # Input Parser
+    #
+    # Expecting array of hashes
+    #   :start_time - When to start recording
+    #   :end_time - when to end recording
+    #   :channel  - channel to record
+    #   :priority - (def. to 1)
+    # 
+    attr_accessor :user_schedule
     
     def schedule
       @schedule ||= []
     end
 
-    def update_schedule(ary)
+    def update_recording_schedule(time)
     end
-
 
     def run!
       t = Thread.new do
         loop do
           ct = Time.now
+
+          update_schedule
 
           notify_observers
 

@@ -15,7 +15,8 @@ module Dvr
       { 
         start_time: start_time,
         end_time: end_time,
-        channel: schedule[2]
+        channel: schedule[2],
+        priority: schedule[3] || 1, 
       }
     end
 
