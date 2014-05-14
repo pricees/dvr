@@ -28,6 +28,8 @@ take into account.
   device will leave enough space to get the full recording next pass
 - Checking for updates of the minute, given that broadcasters offset their start
   times to attempt to fool DVRs
+- The space needed for HD vs SD, that could be taken into account in future
+  versions
 
 ```
 rake        # run test suite
