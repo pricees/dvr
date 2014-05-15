@@ -86,11 +86,4 @@ ch, time
       expect(res).to eq(%w[])
     end
   end
-
-  describe "#encode_schedule" do
-
-    it "response with an current schedule of recordings" do
-      pending
-    end
-  end
 end

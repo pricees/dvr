@@ -1,5 +1,4 @@
 require "singleton"
-require "observer"
 require "set"
 
 module Dvr
