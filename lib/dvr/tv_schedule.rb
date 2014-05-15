@@ -28,20 +28,6 @@ module Dvr
       @showtimes ||= Hash.new { |h, k| h[k] = {} }
     end
 
-    def update_schedule(time = Time.now)
-      # TODO: Pull new data for shows and times
-      schedule(time)
-
-    end
-
-    #
-    #
-    #
-    def schedule(time)
-      time = Time.now if time < Time.now
-    end
-
-
     def next_show(channel, time = Time.now, end_time = Time.now)
 
       shows = showtimes[channel.to_i]
