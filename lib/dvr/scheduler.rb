@@ -59,7 +59,6 @@ module Dvr
       times = Array.new(device.tuners, start_recording) # Assume recording on multiple threads possible
 
       # 2 N*M complexity 
-      foo  = Set.new
       while times.any? { |t| t < stop_recording } do
         times.dup.each.with_index do |time, i| 
           next if time > stop_recording
@@ -85,6 +84,7 @@ module Dvr
         end
       end
 
+      self.schedule = schedule.sort_by { |show| show[:start_time] }
     end
 
     def recordables
@@ -116,7 +116,8 @@ module Dvr
 
     private
 
-    attr_reader   :device
+    attr_reader :device
+    attr_writer :schedule
 
     #
     # The time a user starts the schedule and ends schedule
